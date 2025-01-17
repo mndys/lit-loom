@@ -3,9 +3,9 @@ import fs from 'fs'
 import { logError, logMessage, logWarn } from './lib/colored-log-messages.js'
 import createMetadataFile from './lib/create-metadata-file.js'
 import { getDurations } from './lib/get-durations.js'
+import { getFirstFileCover } from './lib/get-first-file-cover.js'
 import { getFirstFileMetadata } from './lib/get-first-file-metadata.js'
-import { getFirstFileCover } from './lib/getFirstFileCover.js'
-import { hasCover } from './lib/hasCover.js'
+import { hasCover } from './lib/has-cover.js'
 
 // Type definitions
 export type Metadata = {
@@ -59,7 +59,7 @@ function mergeFiles(): void {
 
     logMessage('Führe Dateien zusammen...')
     execSync(
-      `ffmpeg -f concat -safe 0 -i filelist.txt -i ${metadataFile} -map_metadata 1 -id3v2_version 3 -c:a libmp3lame -b:a 128k TEMPORARY_MP3_FILE`,
+      `ffmpeg -f concat -safe 0 -i filelist.txt -i ${metadataFile} -map_metadata 1 -id3v2_version 3 -c:a libmp3lame -b:a 128k ${TEMPORARY_MP3_FILE}`,
       { stdio: 'inherit' }
     )
 
