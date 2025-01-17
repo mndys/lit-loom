@@ -16,9 +16,9 @@ export type Metadata = {
 
 // Constants
 const ALLOWED_AUDIO_EXTENSIONS = ['.m4a', '.mp3', '.m4b', '.wav']
-const TEMPORARY_MP3_FILE = 'temp.mp3'
-const COVER_IMAGE_FILE = 'src/input/cover.jpg'
 const OUTPUT_PATH = 'src/output'
+const TEMPORARY_MP3_FILE = 'temp.mp3'
+export const COVER_IMAGE_FILE = 'src/input/cover.jpg'
 export const INPUT_PATH = 'src/input'
 
 // Dateien zusammenführen

@@ -1,7 +1,11 @@
 import { execSync } from 'child_process'
+import { COVER_IMAGE_FILE } from '../index.js'
 
-// Verzeichnisse mit Dateien
 // Hilfsfunktion: Cover aus der ersten Datei abrufen
 export function getFirstFileCover(file: string): void {
-  execSync(`ffmpeg -i "${file}" -an -vcodec copy cover.jpg`)
+  try {
+    execSync(`ffmpeg -i "${file}" -an -vcodec copy "${COVER_IMAGE_FILE}"`)
+  } catch (error) {
+    console.error('Error extracting cover image:', error)
+  }
 }
