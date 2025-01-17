@@ -17,14 +17,14 @@ export type Metadata = {
 // Constants
 const ALLOWED_AUDIO_EXTENSIONS = ['.m4a', '.mp3', '.m4b', '.wav']
 const TEMPORARY_MP3_FILE = 'temp.mp3'
-const COVER_IMAGE_PATH = 'src/img/cover.jpg'
+const COVER_IMAGE_FILE = 'src/input/cover.jpg'
 const OUTPUT_PATH = 'src/output'
-export const AUDIO_PATH = 'src/audio'
+export const INPUT_PATH = 'src/input'
 
 // Dateien zusammenführen
 function mergeFiles(): void {
   const inputFiles = fs
-    .readdirSync(AUDIO_PATH)
+    .readdirSync(INPUT_PATH)
     .filter(file =>
       ALLOWED_AUDIO_EXTENSIONS.some(extension =>
         file.toLowerCase().endsWith(extension)
@@ -60,7 +60,7 @@ function mergeFiles(): void {
 
     logMessage('Erstelle Datei-Liste...')
     const fileList = inputFiles
-      .map(file => `file '${AUDIO_PATH}/${file}'`)
+      .map(file => `file '${INPUT_PATH}/${file}'`)
       .join('\n')
     fs.writeFileSync('filelist.txt', fileList)
 
@@ -74,17 +74,17 @@ function mergeFiles(): void {
 
     const addCoverAndDeleteTempFile = () => {
       execSync(
-        `ffmpeg -i ${TEMPORARY_MP3_FILE} -i ${COVER_IMAGE_PATH} -map 0 -map 1 -c copy -id3v2_version 3 -metadata:s:v title="Cover" -y "${outputFile}"`,
+        `ffmpeg -i ${TEMPORARY_MP3_FILE} -i ${COVER_IMAGE_FILE} -map 0 -map 1 -c copy -id3v2_version 3 -metadata:s:v title="Cover" -y "${outputFile}"`,
         { stdio: 'inherit' }
       )
       fs.unlinkSync(TEMPORARY_MP3_FILE)
     }
 
-    if (fs.existsSync(COVER_IMAGE_PATH)) {
+    if (fs.existsSync(COVER_IMAGE_FILE)) {
       addCoverAndDeleteTempFile()
     } else if (hasCover(inputFiles[0])) {
       getFirstFileCover(inputFiles[0])
-      if (fs.existsSync(COVER_IMAGE_PATH)) {
+      if (fs.existsSync(COVER_IMAGE_FILE)) {
         addCoverAndDeleteTempFile()
       }
     } else {

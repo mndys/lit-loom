@@ -1,6 +1,6 @@
 import fs from 'fs'
-import chapterTitles from '../../chapters.json' assert { type: 'json' }
 import { Metadata } from '../index.js'
+import chapterTitles from '../input/chapters.json' assert { type: 'json' }
 
 // Kapitel-Metadatendatei erstellen
 export default function createMetadataFile(
