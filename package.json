@@ -6,8 +6,9 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsc && node dist/index.js",
-    "build": "tsc"
+    "start": "pnpm build && node dist/index.js",
+    "build": "tsc && npm run copy:assets",
+    "copy:assets": "cp -R src/audio dist && cp -R src/img dist"
   },
   "keywords": [],
   "author": "Mandy Schwarze",
