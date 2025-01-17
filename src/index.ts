@@ -1,3 +1,5 @@
+#!/usr/bin/env ts-node
+
 import { execSync } from 'child_process'
 import fs from 'fs'
 import { logError, logMessage, logWarn } from './lib/colored-log-messages.js'
@@ -12,14 +14,17 @@ export type Metadata = {
   [key: string]: string
 }
 
-// Erlaubte Audio-Dateiendungen
+// Constants
 const ALLOWED_AUDIO_EXTENSIONS = ['.m4a', '.mp3', '.m4b', '.wav']
 const TEMPORARY_MP3_FILE = 'temp.mp3'
+const COVER_IMAGE_PATH = 'src/img/cover.jpg'
+const OUTPUT_PATH = 'src/output'
+export const AUDIO_PATH = 'src/audio'
 
 // Dateien zusammenführen
 function mergeFiles(): void {
   const inputFiles = fs
-    .readdirSync(process.cwd())
+    .readdirSync(AUDIO_PATH)
     .filter(file =>
       ALLOWED_AUDIO_EXTENSIONS.some(extension =>
         file.toLowerCase().endsWith(extension)
@@ -46,20 +51,22 @@ function mergeFiles(): void {
 
     const sanitizeFileName = (name: string): string =>
       name.replace(/[<>:"/\\|?*\x00-\x1F]/g, '').trim()
-    const outputFile = `${sanitizeFileName(metadata.title) || 'Title'} - ${
-      sanitizeFileName(metadata.artist) || 'Author'
+    const outputFile = `${sanitizeFileName(metadata.title) || 'Unknown Title'} - ${
+      sanitizeFileName(metadata.artist) || 'Unknown Author'
     }.mp3`
 
     logMessage('Erstelle Kapitel-Metadaten...')
     const metadataFile = createMetadataFile(durations, metadata)
 
     logMessage('Erstelle Datei-Liste...')
-    const fileList = inputFiles.map(file => `file '${file}'`).join('\n')
+    const fileList = inputFiles
+      .map(file => `file '${AUDIO_PATH}/${file}'`)
+      .join('\n')
     fs.writeFileSync('filelist.txt', fileList)
 
     logMessage('Führe Dateien zusammen...')
     execSync(
-      `ffmpeg -f concat -safe 0 -i filelist.txt -i ${metadataFile} -map_metadata 1 -id3v2_version 3 -c:a libmp3lame -b:a 128k ${TEMPORARY_MP3_FILE}`,
+      `ffmpeg -f concat -safe 0 -i filelist.txt -i ${metadataFile} -map_metadata 1 -id3v2_version 3 -c:a libmp3lame -b:a 128k "${TEMPORARY_MP3_FILE}"`,
       { stdio: 'inherit' }
     )
 
@@ -67,23 +74,30 @@ function mergeFiles(): void {
 
     const addCoverAndDeleteTempFile = () => {
       execSync(
-        `ffmpeg -i ${TEMPORARY_MP3_FILE} -i cover.jpg -map 0 -map 1 -c copy -id3v2_version 3 -metadata:s:v title="Cover" -y "${outputFile}"`,
+        `ffmpeg -i ${TEMPORARY_MP3_FILE} -i ${COVER_IMAGE_PATH} -map 0 -map 1 -c copy -id3v2_version 3 -metadata:s:v title="Cover" -y "${outputFile}"`,
         { stdio: 'inherit' }
       )
       fs.unlinkSync(TEMPORARY_MP3_FILE)
     }
 
-    if (fs.existsSync(`cover.jpg`)) {
-      addCoverAndDeleteTempFile
+    if (fs.existsSync(COVER_IMAGE_PATH)) {
+      addCoverAndDeleteTempFile()
     } else if (hasCover(inputFiles[0])) {
       getFirstFileCover(inputFiles[0])
-      if (fs.existsSync(`cover.jpg`)) {
-        addCoverAndDeleteTempFile
+      if (fs.existsSync(COVER_IMAGE_PATH)) {
+        addCoverAndDeleteTempFile()
       }
     } else {
       logWarn('Kein Cover gefunden. Die Datei wird ohne Cover erstellt.')
       fs.renameSync(TEMPORARY_MP3_FILE, outputFile)
     }
+
+    if (!fs.existsSync(OUTPUT_PATH)) {
+      fs.mkdirSync(OUTPUT_PATH, { recursive: true })
+    }
+    const outputFilePath = `${OUTPUT_PATH}/${outputFile}`
+    fs.renameSync(outputFile, outputFilePath)
+    logMessage(`Datei gespeichert unter: "${outputFilePath}"`)
 
     logMessage(`Erfolgreich zusammengeführt: "${outputFile}"`)
 
