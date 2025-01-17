@@ -1,0 +1,153 @@
+{
+    // Editor
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit",
+        "source.fixAll.eslint": "explicit"
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file",
+    "editor.formatOnType": true,
+    "diffEditor.codeLens": true,
+    "editor.semanticHighlighting.enabled": true,
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "**/node_modules": true,
+        "**/temp": true,
+        "**/dist": true,
+        "**/.jest-cache": true,
+        "**/.next": true,
+        "**/.build": true
+    },
+    "search.followSymlinks": false,
+    // Git
+    "git.autofetch": true,
+    "git.inputValidationSubjectLength": 100,
+    "git.inputValidationLength": 100,
+    // Node
+    "npm.packageManager": "pnpm",
+    "npm.autoDetect": "off",
+    // JavaScript
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    // TypeScript
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "typescript.preferences.importModuleSpecifier": "project-relative",
+    "typescript.preferences.includePackageJsonAutoImports": "on",
+    "typescript.tsc.autoDetect": "off",
+    // Debug
+    // "debug.javascript.autoAttachFilter": "smart",
+    // "debug.javascript.autoAttachSmartPattern": [
+    //   "${workspaceFolder}/**",
+    //   "!**/node_modules/**",
+    //   "**/$KNOWN_TOOLS$/**"
+    // ],
+    // CSS
+    "css.validate": false,
+    // Jest
+    "jest.autoRun": {
+        "watch": false,
+        "onSave": "test-file"
+    },
+    // ESLint
+    "eslint.debug": false,
+    "eslint.useESLintClass": true,
+    "eslint.codeActionsOnSave.mode": "all",
+    "eslint.format.enable": true,
+    "eslint.lintTask.enable": false,
+    "eslint.onIgnoredFiles": "warn",
+    "eslint.options": {
+        "cache": true,
+        "reportUnusedDisableDirectives": "error",
+        "cacheStrategy": "content"
+    },
+    // "eslint.packageManager": "pnpm",
+    "eslint.probe": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact"
+    ],
+    // Prettier
+    "prettier.enable": true,
+    "prettier.ignorePath": "./.prettierignore",
+    "prettier.requireConfig": true,
+    "prettier.useEditorConfig": true,
+    "prettier.prettierPath": "./node_modules/prettier",
+    // PlantUML
+    "plantuml.server": "http://docker01.webdev.heise.de:9010",
+    "plantuml.render": "PlantUMLServer",
+    // JavaScript
+    "[javascript]": {
+        "editor.rulers": [80],
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascriptreact]": {
+        "editor.rulers": [80],
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.quickSuggestions": {
+            "strings": true
+        }
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    // TypeScript
+    "[typescript]": {
+        "editor.rulers": [80],
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescriptreact]": {
+        "editor.rulers": [80],
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.quickSuggestions": {
+            "strings": true
+        }
+    },
+    "typescript.enablePromptUseWorkspaceTsdk": true,
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "[xml]": {
+        "editor.defaultFormatter": "DotJoshJohnson.xml"
+    },
+    "graphql-config.dotEnvPath": "services/academy/academy-web/.env.local",
+    "editor.gotoLocation.multipleDefinitions": "goto",
+    "[graphql]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "tailwindCSS.experimental.configFile": {
+        "libs/styles/tailwind.config.js": [
+            "libs/components/src/**",
+            "libs/interred-richtext/src/**",
+            "libs/podigee-themes/src/**",
+            "libs/next-layouts/src/**",
+            "libs/next/src/**",
+            "services/account/account-web/src/**",
+            "services/content/content-curator/src/**",
+            "services/content/content-preview/src/**",
+            "services/content/content-web/src/**"
+        ],
+        "services/academy/academy-contentful/tailwind.config.js": "services/academy/academy-contentful/src/**",
+        "services/academy/academy-web/tailwind.config.js": "services/academy/academy-web/src/**",
+        "services/forum/forum-monocle/tailwind.config.js": "services/forum/forum-monocle/src/**",
+        "services/forum/forum-web/tailwind.config.js": "services/forum/forum-web/src/**",
+        "services/pvg/pvg-b2b-web/tailwind.config.js": "services/pvg/pvg-b2b-web/src/**",
+        "services/checkout/checkout-web/tailwind.config.js": "services/checkout/checkout-web/src/**",
+        "services/checkout/forum-web/tailwind.config.js": "services/forum/forum-web/src/**",
+        "services/content/content-next/tailwind.config.js": "services/content/content-next/src/**"
+    },
+    "search.useIgnoreFiles": false,
+    "[go]": {
+        "editor.defaultFormatter": "golang.go"
+    },
+    "[rego]": {
+        "editor.defaultFormatter": "tsandall.opa"
+    },
+    "workbench.colorCustomizations": {
+        "tab.activeBackground": "#FFCC6615" // Hintergrundfarbe des aktiven Tabs
+    }
+}
