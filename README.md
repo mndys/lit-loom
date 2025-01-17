@@ -72,7 +72,8 @@ To merge the audio files and add metadata, run:
 pnpm start
 ```
 
-This will generate a merged MP3 file with the specified metadata and cover image.
+> [!NOTE]
+> This will generate a merged MP3 file with the specified metadata and cover image in the `src/output` directory.
 
 ## License
 
