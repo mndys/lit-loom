@@ -10,6 +10,7 @@
    ```
 
 2. Install dependencies:
+
    ```sh
    pnpm install
    ```
@@ -36,7 +37,7 @@ pnpm start
 
 ### Adding Audio Files
 
-1. Place your audio files in the `src/audio` directory.
+1. Place your audio files in the `src/input` directory.
 2. Ensure the filenames are correctly formatted and do not contain special characters.
 
 ### Adding a Cover File
@@ -44,12 +45,12 @@ pnpm start
 > [!NOTE]
 > The cover image should be a square image with a minimum resolution of 300x300 pixels and is only needed, if there is no cover image embedded in the audio files or if you would like to override the embedded cover image.
 
-1. Place your cover image in the `src/img` directory.
+1. Place your cover image in the `src/input` directory.
 2. Ensure the filename is `cover.jpg` .
 
 ### Adding Chapters Metadata
 
-1. Create a `chapters.json` file in the root directory.
+1. Create a `chapters.json` file in the `src/input` directory.
 2. The `chapters.json` file should have the following structure:
 
    ```json
@@ -62,7 +63,7 @@ pnpm start
    ```
 
    > [!IMPORTANT]
-   > The number of chapters in the `chapters.json` file should match the number of audio files in the `src/audio` directory.
+   > The number of chapters in the `chapters.json` file should match the number of audio files in the `src/input` directory.
 
 ## Running the Merge Script
 
