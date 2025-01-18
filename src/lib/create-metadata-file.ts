@@ -1,16 +1,26 @@
 import fs from 'fs'
 import { Metadata } from '../index.js'
-import chapterTitles from '../input/chapters.json' assert { type: 'json' }
+
+interface CreateMetadataFile {
+  durations: number[]
+  metadata: Metadata
+  OUTPUT_PATH: string
+  chapterTitles: string[]
+}
 
 // Kapitel-Metadatendatei erstellen
-export default function createMetadataFile(
-  durations: number[],
-  metadata: Metadata
-): string {
+export default function createMetadataFile({
+  durations,
+  metadata,
+  OUTPUT_PATH,
+  chapterTitles,
+}: CreateMetadataFile): string {
   let meta = ';FFMETADATA1\n'
+
   Object.keys(metadata).forEach(item => {
     meta += `${item}=${metadata[item]}\n`
   })
+
   meta += '\n'
 
   let currentTime = 0
@@ -27,7 +37,8 @@ export default function createMetadataFile(
     meta += `TITLE=${chapterTitles[index]}\n\n`
   })
 
-  const metadataFile = 'chapters.txt'
+  const metadataFile = `${OUTPUT_PATH}/chapters.txt`
   fs.writeFileSync(metadataFile, meta)
+
   return metadataFile
 }
