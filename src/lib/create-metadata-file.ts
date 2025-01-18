@@ -37,8 +37,8 @@ export default function createMetadataFile({
     meta += `TITLE=${chapterTitles[index]}\n\n`
   })
 
-  const metadataFile = `${OUTPUT_PATH}/chapters.txt`
-  fs.writeFileSync(metadataFile, meta)
+  const metadataFilePath = `${OUTPUT_PATH}/chapters.txt`
+  fs.writeFileSync(metadataFilePath, meta)
 
-  return metadataFile
+  return metadataFilePath
 }
