@@ -1,5 +1,7 @@
 # Lit Loom
 
+**Lit Loom** is a tool to merge multiple audio files into a single MP3 file with metadata and cover image.
+
 ## Installation
 
 1. Clone the repository:
@@ -46,7 +48,7 @@ pnpm start
 > The cover image should be a square image with a minimum resolution of 300x300 pixels and is only needed, if there is no cover image embedded in the audio files or if you would like to override the embedded cover image.
 
 1. Place your cover image in the `src/input` directory.
-2. Ensure the filename is `cover.jpg` .
+2. Ensure the filename is `cover.jpg`.
 
 ### Adding Chapters Metadata
 
