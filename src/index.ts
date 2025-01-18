@@ -28,24 +28,24 @@ export const TEMPORARY_MP3_FILE = `${OUTPUT_PATH}/temp.mp3`
 // Vorbereitung
 
 // ACTION
-export const inputFiles = getAudioFiles(INPUT_PATH)
-const originalMetadata = getFirstFileMetadata(
+export const inputFiles: string[] = getAudioFiles(INPUT_PATH)
+const originalMetadata: Metadata = getFirstFileMetadata(
   inputFiles[0],
   COVER_IMAGE_FILE,
   INPUT_PATH
 )
-const outputFileName = generateOutputFileName(originalMetadata)
-const durations = getDurations(inputFiles, INPUT_PATH)
+const outputFileName: string = generateOutputFileName(originalMetadata)
+const durations: number[] = getDurations(inputFiles, INPUT_PATH)
 
 logMessage('Erstelle Kapitel-Metadaten...')
-const newMetadataPath = createMetadataFile({
+const newMetadataPath: string = createMetadataFile({
   durations,
   metadata: originalMetadata,
   OUTPUT_PATH,
   chapterTitles,
 })
 
-const fileListPath = createFileListFile({
+const fileListPath: string = createFileListFile({
   inputFiles,
   OUTPUT_PATH,
   RELATIVE_INPUT_PATH,
