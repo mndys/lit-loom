@@ -5,3 +5,5 @@ dist
 *.mp3
 *.jpg
 chapters.json
+chapters.txt
+filelist.txt
