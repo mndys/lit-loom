@@ -1,8 +1,8 @@
 import { execSync } from 'child_process'
 import fs from 'fs'
+import readlineSync from 'readline-sync'
 import { Metadata } from '../index.js'
 import { logError, logMessage, logWarn } from './colored-log-messages.js'
-const readlineSync = require('readline-sync')
 
 // Hilfsfunktion: Metadaten aus der ersten Datei abrufen
 export function getFirstFileMetadata(
