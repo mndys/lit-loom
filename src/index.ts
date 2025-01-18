@@ -20,7 +20,6 @@ export type Metadata = {
 export const INPUT_PATH = 'src/input'
 export const RELATIVE_INPUT_PATH = 'input'
 export const OUTPUT_PATH = 'src/output'
-export const RELATIVE_OUTPUT_PATH = 'output'
 
 export const COVER_IMAGE_FILE = `${INPUT_PATH}/cover.jpg`
 export const OUTPUT_FILE = `${OUTPUT_PATH}/output.mp3`
