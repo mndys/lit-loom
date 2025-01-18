@@ -2,6 +2,7 @@ import { execSync } from 'child_process'
 import fs from 'fs'
 import { Metadata } from '../index.js'
 import { logError, logMessage, logWarn } from './colored-log-messages.js'
+const readlineSync = require('readline-sync')
 
 // Hilfsfunktion: Metadaten aus der ersten Datei abrufen
 export function getFirstFileMetadata(
@@ -22,6 +23,18 @@ export function getFirstFileMetadata(
     // JSON-String in Objekt umwandeln und metadata-Objekt extrahieren
     const ffmpegMetadata = JSON.parse(ffprobeOutput)
     const metadata = ffmpegMetadata.format.tags
+
+    // Titel und Album abgleichen
+    if (metadata.album) {
+      metadata.title = metadata.album
+    } else if (metadata.title) {
+      metadata.album = metadata.title
+    }
+    if (!metadata.album && !metadata.title) {
+      const userInput = readlineSync.question('Wie soll das Hörbuch heißen? ')
+      metadata.album = userInput
+      metadata.title = userInput
+    }
 
     // auf Cover prüfen
     const coverStream = ffmpegMetadata.streams.some(
